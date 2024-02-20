@@ -1,0 +1,8 @@
+# UCSD Challenge Folder and its content
+challenge
+
+# Ignores SECRETS
+.env
+
+# Ignores the node_modules folder
+node_modules
