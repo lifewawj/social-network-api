@@ -1,5 +1,5 @@
 const express = require('express'); // Import the express npm package
-
+const db = require('./config/connection'); // Import the MongoDB connection
 const PORT = 3001; // Create a const var for a PORT for our server to run
 
 const app = express(); // Call express() and store it within an app const var
@@ -12,6 +12,8 @@ app.get('/', (req, res) => {
     res.send("Hello World");
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}/`)
-}); 
+db.once('open', () => {
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}/`)
+    });
+});

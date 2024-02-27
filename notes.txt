@@ -1,0 +1,11 @@
+social-network-api TODOs
+
+1. Create a Repository on GitHub
+2. Add NPM Packages needed (Express, and nodemon) to get the server up and running locally fine
+3. Import all the npm packages needed
+4. Create the models
+5. Connect the MongoDB connection with our Express Server
+    - create a config folder
+        - inside create a file named “connection.js”
+6. Create the routes
+    - CRUD (Create, Read, Update, Delete)
