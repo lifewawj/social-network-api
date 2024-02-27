@@ -1,6 +1,6 @@
 const express = require('express'); // Import the express npm package
 const db = require('./config/connection'); // Import the MongoDB connection
-const PORT = 3001; // Create a const var for a PORT for our server to run
+const PORT = process.env.PORT || 3001; // Create a const var for a PORT for our server to run
 
 const app = express(); // Call express() and store it within an app const var
 
