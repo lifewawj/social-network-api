@@ -14,9 +14,10 @@ const userSchema = new Schema({
 
         // validation using the regex I solved from my regex-tutorial gist on GitHub
         validate: {
-            match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
-            message: 'Invalid email format',
-        }
+            validator: function (email) {
+                return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(email);
+            },
+        },
     },
     thoughts: [
         {
@@ -30,12 +31,19 @@ const userSchema = new Schema({
             ref: 'user'
         }
     ],
-});
+},
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        id: false,
+    }
+);
 
 
 // a virtual called friendCount that retireves the length of the user's friends array field on query
-userSchema.virtual('friendCount').get( function () {
-    return `${this.username} has ${this.friends.length} friends!`;
+userSchema.virtual('friendCount').get(function () {
+    return `${this.username} has ${this.friends.length} amount of friend(s)!`;
 });
 
 

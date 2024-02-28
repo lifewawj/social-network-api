@@ -1,35 +1,40 @@
 const { Schema, model } = require('mongoose');
 
-const { reactionSchema } = require('./reaction-schema.js');
+const reactionSchema = require('./reaction-schema');
 
 
 const thoughtSchema = new Schema({
     thoughtText: {
         type: String,
         required: true,
-        validate: {
-            // Must be between 1 and 280 characters
-            min: 1,
-            max: 280,
-        },
+        // Must be between 1 and 280 characters
+        minlength: 1,
+        maxlength: 280,
     },
     createdAt: {
         type: Date,
-        default: Date.now(),
-        // TODO: Use a getter method to format the timestamp on query within the routes
+        default: Date.now,
+        get: (timestamp) => new Date(timestamp).toLocaleString(),
     },
     username: {
         type: String,
         required: true,
-        // TODO: The user that created this thought, may have to reference from the user model
     },
-    reactions: [reactionSchema]
-});
+    reactions: [reactionSchema],
+},
+    {
+        toJSON: {
+            getters: true,
+            virtuals: true,
+        },
+        id: false,
+    }
+);
 
 
 // a virtual called reactionCount that retrieves the length of the thought's reactions array field on query
-thoughtSchema.virtual('reactionCount').get( function () {
-    return `${this.reactions.length}`;
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
 });
 
 

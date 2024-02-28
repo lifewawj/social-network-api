@@ -1,14 +1,14 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types } = require('mongoose');
 
 const reactionSchema = new Schema({
     reactionId: {
         type: Schema.Types.ObjectId,
-        default: true,
+        default: () => new Types.ObjectId(),
     },
     reactionBody: {
         type: String,
         required: true,
-        max: 280,
+        maxlength: 280,
     },
     username: {
         type: String,
@@ -16,14 +16,19 @@ const reactionSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now(),
-        // TODO: Use a getter method to format the timestamp on query within the routes
+        default: Date.now,
+        get: (timestamp) => new Date(timestamp).toLocaleString(),
     }
-});
+},
+    {
+        toJSON: {
+            getters: true,
+        },
+        id: false,
+    }
+);
 
 
 // This will not be a model, but rather will be used as the reaction field's subdocument schema in the Thought model.
-// Rewatch the subdocument part in the UCSD recording for NoSQL
-
 
 module.exports = reactionSchema;
