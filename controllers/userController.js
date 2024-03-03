@@ -5,7 +5,8 @@ module.exports = {
     // GET All Users
     async getAllUsers(req, res) {
         try {
-            const users = await User.find();
+            const users = await User.find()
+            .select("-__v"); // exclude the __v field inside the MongoDB documents
             
             res.status(200).json(users);
         } catch (error) {
@@ -17,6 +18,7 @@ module.exports = {
     async getUserById(req, res) {
         try {
             const user = await User.findOne({ _id: req.params.userId })
+            .select("-__v"); // exclude the __v field inside the MongoDB documents
 
             res.status(200).json(user);
         } catch (error) {
