@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema({
     username: {
@@ -42,12 +42,12 @@ const userSchema = new Schema({
 
 
 // a virtual called friendCount that retireves the length of the user's friends array field on query
-userSchema.virtual('friendCount').get(function () {
+userSchema.virtual("friendCount").get(function () {
     return `${this.username} has ${this.friends.length} amount of friend(s)!`;
 });
 
 
-const User = model('user', userSchema); // sets up our User model
+const User = model("user", userSchema); // sets up our User model
 // the first param as the custom name for our model
 // the sec. param to use our userSchema as the reference
 
