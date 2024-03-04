@@ -25,7 +25,7 @@ module.exports = {
 
             res.status(200).json(user);
         } catch (error) {
-            res.status(500).json(error);
+            return res.status(500).json(error);
         };
     },
 
@@ -36,7 +36,7 @@ module.exports = {
 
             res.status(200).json(user);
         } catch (error) {
-            res.status(500).json(error);
+            return res.status(500).json(error);
         }
     },
 
@@ -55,7 +55,7 @@ module.exports = {
 
             res.status(200).json(user);
         } catch (error) {
-            res.status(500).json(error);
+            return res.status(500).json(error);
         }
     },
 
@@ -72,10 +72,11 @@ module.exports = {
 
             res.status(200).json({ message: 'User and Thoughts Deleted' });
         } catch (error) {
-            res.status(500).json(error);
+            return res.status(500).json(error);
         }
     },
 
+    // ADD a Friend to User
     async addFriend(req, res) {
         try {
             const user = await User.findOneAndUpdate(
@@ -90,21 +91,26 @@ module.exports = {
 
             res.status(200).json(user);
         } catch (error) {
-            res.status(500).json(error);
+            return res.status(500).json(error);
         }
     },
 
+    // DELETE a Friend from a User
     async deleteFriend(req, res) {
         try {
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId },
-                { $addToSet: { friends: req.params.friendId } },
+                { $pull: { friends: req.params.friendId } },
                 { new: true }
             );
 
+            if (!user) {
+                return res.status(404).json({ message: 'User does not exist with this id' })
+            }
+
             res.status(200).json({ user, message: `User's Friend Deleted!` });
         } catch (error) {
-            res.status(500).json(error);
+            return res.status(500).json(error);
         }
     },
 };
