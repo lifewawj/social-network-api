@@ -33,7 +33,22 @@ module.exports = {
         try {
             const thought = await Thought.create(req.body);
 
-            res.status(200).json(thought);
+            res.status(200).json({ thought, message: "Thought Successfully Created" });
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
+
+    // DELETE a Thought
+    async deleteThought(req, res) {
+        try {
+            const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+
+            if (!thought) {
+                return res.status(404).json({ message: 'Thought does not exist with this id' })
+            }
+
+            res.status(200).json({ thought, message: "Thought Successfully Deleted"});
         } catch (error) {
             res.status(500).json(error);
         }
