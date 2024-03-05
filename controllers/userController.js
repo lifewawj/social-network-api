@@ -3,7 +3,7 @@ const Thought = require("../models/thought-model")
 
 module.exports = {
     // GET All Users
-    async getAllUsers(req, res) {
+    async getAllUsers (req, res) {
         try {
             const users = await User.find()
                 .select("-__v"); // exclude the __v field inside the MongoDB documents
@@ -15,7 +15,7 @@ module.exports = {
     },
 
     // GET a User by Id
-    async getUserById(req, res) {
+    async getUserById (req, res) {
         try {
             const user = await User.findOne({ _id: req.params.userId })
                 .select("-__v"); // exclude the __v field inside the MongoDB documents
@@ -31,7 +31,7 @@ module.exports = {
     },
 
     // POST (CREATE) a User
-    async createUser(req, res) {
+    async createUser (req, res) {
         try {
             const user = await User.create(req.body);
 
@@ -42,7 +42,7 @@ module.exports = {
     },
 
     // PUT (UPDATE) a User by Id
-    async updateUserById(req, res) {
+    async updateUserById (req, res) {
         try {
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId },
@@ -61,7 +61,7 @@ module.exports = {
     },
 
     // DELETE a User by Id
-    async deleteUserById(req, res) {
+    async deleteUserById (req, res) {
         try {
             const user = await User.findOneAndDelete(
                 { _id: req.params.userId }
@@ -78,7 +78,7 @@ module.exports = {
     },
 
     // ADD a Friend to User
-    async addFriend(req, res) {
+    async addFriend (req, res) {
         try {
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId },
@@ -97,7 +97,7 @@ module.exports = {
     },
 
     // DELETE a Friend from a User
-    async deleteFriend(req, res) {
+    async deleteFriend (req, res) {
         try {
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId },

@@ -48,7 +48,26 @@ module.exports = {
                 return res.status(404).json({ message: 'Thought does not exist with this id' })
             }
 
-            res.status(200).json({ thought, message: "Thought Successfully Deleted"});
+            res.status(200).json({ thought, message: "Thought Successfully Deleted" });
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
+
+    // UPDATE a Thought
+    async updateThoughtById(req, res) {
+        try {
+            const thought = await Thought.findByIdAndUpdate(
+                { _id: req.params.thoughtId },
+                { $set: req.body },
+                { runValidators: true, new: true }
+            );
+
+            if (!thought) {
+                return res.status(404).json({ message: 'Thought does not exist with this id' })
+            }
+
+            res.status(200).json({ thought, message: "Thought Successfully Updated"})
         } catch (error) {
             res.status(500).json(error);
         }
