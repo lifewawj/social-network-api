@@ -67,9 +67,45 @@ module.exports = {
                 return res.status(404).json({ message: 'Thought does not exist with this id' })
             }
 
-            res.status(200).json({ thought, message: "Thought Successfully Updated"})
+            res.status(200).json({ thought, message: "Thought Successfully Updated" })
         } catch (error) {
             res.status(500).json(error);
         }
-    }
+    },
+
+    async addReaction(req, res) {
+        try {
+            const thought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $addToSet: { reactions: req.body } },
+                { runValidators: true, new: true }
+            );
+
+            if (!thought) {
+                res.status(404).json({ message: "Thought or Reaction not exist with this id" });
+            }
+
+            res.status(200).json({ thought, message: "Reaction Successfully Added" })
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
+
+    async deleteReaction(req, res) {
+        try {
+            const thought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $pull: { reactions: { reactionId: req.params.reactionId } } },
+                { runValidators: true, new: true }
+            );
+
+            if (!thought) {
+                res.status(404).json({ message: "Thought or Reaction does not exist with this id" });
+            }
+
+            res.status(200).json({ thought, message: "Reaction Successfully Deleted" })
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
 };
