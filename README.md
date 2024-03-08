@@ -4,6 +4,7 @@
 
 A social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list.
 
+
 ## What I have learned?
 
 - How to create a Non-relational Database with MongoDB, and using Mongoose to assist me with making my model schemas, and learning how to make API Routes with MongoDB.
