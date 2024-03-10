@@ -42,6 +42,8 @@ nodemon server.js OR node server.js
 - Ability to add and remove friends for a user
 - Ability to add and remove reactions to thoughts
 
+[![Click here to Download Tutorial Video](./assets/social-network-api-tutorial.webm)]
+
 ### Technologies Used
 
 - Node.js
