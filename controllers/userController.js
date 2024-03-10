@@ -1,12 +1,13 @@
 const User = require("../models/user-model");
 const Thought = require("../models/thought-model")
 
+// Wraps all of our CRUD routes inside the export
 module.exports = {
     // GET All Users
     async getAllUsers(req, res) {
         try {
             const users = await User.find()
-                .select("-__v"); // exclude the __v field inside the MongoDB documents
+                .select("-__v"); // .select removes the __v field that MongoDB has 
 
             res.status(200).json(users);
         } catch (error) {
@@ -18,7 +19,7 @@ module.exports = {
     async getUserById(req, res) {
         try {
             const user = await User.findOne({ _id: req.params.userId })
-                .select("-__v"); // exclude the __v field inside the MongoDB documents
+                .select("-__v"); // .select removes the __v field that MongoDB has 
 
             if (!user) {
                 return res.status(404).json({ message: 'User does not exist with this id' })

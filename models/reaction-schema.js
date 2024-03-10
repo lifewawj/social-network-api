@@ -1,4 +1,4 @@
-const { Schema, Types } = require("mongoose");
+const { Schema, Types } = require("mongoose"); // Import the Schema and Types from mongoose
 
 const reactionSchema = new Schema({
     reactionId: {
@@ -31,4 +31,4 @@ const reactionSchema = new Schema({
 
 // This will not be a model, but rather will be used as the reaction field's subdocument schema in the Thought model.
 
-module.exports = reactionSchema;
+module.exports = reactionSchema; // exports the reactionsSchema

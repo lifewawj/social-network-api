@@ -1,4 +1,4 @@
-const User = require("./user-model.js");
-const Thought = require("./thought-model.js");
+const User = require("./user-model.js"); // Importing the User model
+const Thought = require("./thought-model.js"); // Importing the Thought model
 
-module.exports = { User, Thought };
+module.exports = { User, Thought }; // export the User and Thought model

@@ -1,6 +1,7 @@
-const Thought = require("../models/thought-model");
-const User = require("../models/user-model");
+const Thought = require("../models/thought-model"); // Importing the Thought model
+const User = require("../models/user-model"); // Importing the User model
 
+// Wraps all of our CRUD routes inside the export
 module.exports = {
     // GET All Thoughts
     async getAllThoughts(req, res) {
@@ -16,7 +17,7 @@ module.exports = {
     // GET One Thought by Id
     async getThoughtById(req, res) {
         try {
-            const thought = await Thought.findOne({ _id: req.params.thoughtId }).select("-__v");
+            const thought = await Thought.findOne({ _id: req.params.thoughtId }).select("-__v"); // .select removes the __v field that MongoDB has 
 
             if (!thought) {
                 return res.status(404).json({ message: 'Thought does not exist with this id' })
